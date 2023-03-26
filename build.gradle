@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.lomakosv'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.2'
+    testImplementation group: 'com.codeborne', name: 'selenide', version: '6.12.3'
+    testImplementation group: 'com.codeborne', name: 'pdf-test', version: '1.8.1'
+    testImplementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.3'
+    testImplementation group: 'com.codeborne', name: 'pdf-test', version: '1.8.1'
+    testImplementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
+    testImplementation group: 'com.codeborne', name: 'xls-test', version: '1.7.0'
+
+
+
+
+
+
+
+
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
