@@ -2,6 +2,7 @@ package ru.lomakosv;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -18,7 +19,7 @@ public class WorkingWithFilesTest extends TestBase {
     TrimmedString trimmedString = new TrimmedString();
 
     @Test
-    void readingAndCheckTxtFiles() throws Exception {
+    void readingAndCheckTXTFiles() throws Exception {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-txt.txt");
         try (InputStream is = new FileInputStream(file)) {
             byte[] bytes = is.readAllBytes();
@@ -28,7 +29,7 @@ public class WorkingWithFilesTest extends TestBase {
     }
 
     @Test
-    void readingAndCheckDocxFiles() throws Exception {
+    void readingAndCheckDOCXFiles() throws Exception {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-docx.docx");
         try (FileInputStream fis = new FileInputStream(file);
              XWPFDocument document = new XWPFDocument(fis)) {
@@ -39,14 +40,14 @@ public class WorkingWithFilesTest extends TestBase {
     }
 
     @Test
-    void readingAndCheckPdfFiles() throws Exception {
+    void readingAndCheckPDFFiles() throws Exception {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-pdf.pdf");
         PDF pdf = new PDF(file);
         Assertions.assertTrue(pdf.text.contains("Отлично"));
     }
 
     @Test
-    void readingAndCheckCsvFiles() throws Exception {
+    void readingAndCheckCSVFiles() throws Exception {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-csv.csv");
         try (InputStream is = new FileInputStream(file);
              InputStreamReader isr = new InputStreamReader((is), StandardCharsets.UTF_8);
@@ -59,10 +60,27 @@ public class WorkingWithFilesTest extends TestBase {
     }
 
     @Test
-    void readingAndCheckXlsxFiles() {
+    void readingAndCheckXLSXFiles() {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-xlsx.xlsx");
         XLS xls = new XLS(file);
         Assertions.assertTrue(xls.excel.getSheetAt(0).getRow(7).
                 getCell(3).getStringCellValue().contains("Отлично"));
+    }
+
+    @Test
+    void readingAndCheckJSONFiles() throws Exception {
+
+        ClassLoader classLoader = WorkingWithFilesTest.class.getClassLoader();
+        ObjectMapper mapper = new ObjectMapper();
+        try (InputStream is = classLoader.getResourceAsStream("file-json.json")) {
+            assert is != null;
+            try (InputStreamReader isr = new InputStreamReader(is)) {
+                JSONObject jsonObject = mapper.readValue(isr, JSONObject.class);
+                System.out.println(jsonObject);
+                Assertions.assertEquals(1971, jsonObject.album.releaseYear.intValue());
+                Assertions.assertEquals("Led Zeppelin IV", jsonObject.album.titleAlbum);
+
+            }
+        }
     }
 }
