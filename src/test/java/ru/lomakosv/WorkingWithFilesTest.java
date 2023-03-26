@@ -76,7 +76,6 @@ public class WorkingWithFilesTest extends TestBase {
             assert is != null;
             try (InputStreamReader isr = new InputStreamReader(is)) {
                 JSONObject jsonObject = mapper.readValue(isr, JSONObject.class);
-                System.out.println(jsonObject);
                 Assertions.assertEquals(1971, jsonObject.album.releaseYear.intValue());
                 Assertions.assertEquals("Led Zeppelin IV", jsonObject.album.titleAlbum);
 

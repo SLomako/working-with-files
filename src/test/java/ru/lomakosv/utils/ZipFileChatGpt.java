@@ -32,9 +32,9 @@ public class ZipFileChatGpt {
                 entry = zipIn.getNextEntry();
             }
             zipIn.close();
-            System.out.println("Successfully unzipped " + pathToZipFile + " to " + pathToUnpackedFiles);
+            System.out.println("Successfully unzipped to " + pathToUnpackedFiles);
         } catch (IOException e) {
-            System.out.println("Error while unzipping " + pathToZipFile + ": " + e.getMessage());
+            System.out.println("Error while unzipping" + e.getMessage());
         }
     }
 
