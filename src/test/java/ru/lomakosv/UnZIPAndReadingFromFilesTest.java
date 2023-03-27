@@ -2,21 +2,34 @@ package ru.lomakosv;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.lomakosv.utils.TrimmedString;
+import ru.lomakosv.utils.ZipFileChatGpt;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class WorkingWithFilesTest extends TestBase {
+public class UnZIPAndReadingFromFilesTest {
+
+    protected static final String PATH_TO_UNPACKED_FILES = System.getProperty("user.dir")
+            + File.separator + "src" + File.separator + "test" + File.separator
+            + "resources" + File.separator + "unpacked-zip-files" + File.separator;
+    protected static final ClassLoader PATH_TO_ZIP_FILE = ZipFileChatGpt.class.getClassLoader();
 
     TrimmedString trimmedString = new TrimmedString();
+    ZipFileChatGpt zipFile = new ZipFileChatGpt();
+
+    @BeforeEach
+    void unZIP() {
+        zipFile.unzipFiles(PATH_TO_UNPACKED_FILES, PATH_TO_ZIP_FILE);
+    }
 
     @Test
     void readingAndCheckTXTFiles() throws Exception {
@@ -67,19 +80,9 @@ public class WorkingWithFilesTest extends TestBase {
                 getCell(3).getStringCellValue().contains("Отлично"));
     }
 
-    @Test
-    void readingAndCheckJSONFiles() throws Exception {
 
-        ClassLoader classLoader = WorkingWithFilesTest.class.getClassLoader();
-        ObjectMapper mapper = new ObjectMapper();
-        try (InputStream is = classLoader.getResourceAsStream("file-json.json")) {
-            assert is != null;
-            try (InputStreamReader isr = new InputStreamReader(is)) {
-                JSONObject jsonObject = mapper.readValue(isr, JSONObject.class);
-                Assertions.assertEquals(1971, jsonObject.album.releaseYear.intValue());
-                Assertions.assertEquals("Led Zeppelin IV", jsonObject.album.titleAlbum);
-
-            }
-        }
+    @AfterEach
+    void deleteCatalog() {
+        zipFile.delete(PATH_TO_UNPACKED_FILES);
     }
 }

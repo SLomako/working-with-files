@@ -22,7 +22,6 @@ dependencies {
     testImplementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
     testImplementation group: 'com.codeborne', name: 'xls-test', version: '1.7.0'
     testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.0-rc1'
-    testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.0-rc1'
     testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.15.0-rc1'
 }
 test {
