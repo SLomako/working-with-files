@@ -13,6 +13,7 @@ import ru.lomakosv.utils.TrimmedString;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -24,6 +25,7 @@ public class ReadingFromZIPFileTest {
     static ClassLoader classLoader = ReadingFromZIPFileTest.class.getClassLoader();
     static TrimmedString trimmedString = new TrimmedString();
     static String zipPath = "file.zip";
+
     @Test
     public void CSVTest() throws Exception {
 
@@ -69,7 +71,7 @@ public class ReadingFromZIPFileTest {
                 while ((entry = zis.getNextEntry()) != null) {
                     if (entry.getName().endsWith(".txt")) {
                         byte[] bytes = zis.readAllBytes();
-                        String fileAsString = new String(bytes);
+                        String fileAsString = new String(bytes, Charset.forName("windows-1251"));
                         Assertions.assertTrue(fileAsString.contains("Отлично"));
                     }
                 }

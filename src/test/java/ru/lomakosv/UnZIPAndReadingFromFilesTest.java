@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.lomakosv.utils.TrimmedString;
-import ru.lomakosv.utils.ZipFileChatGpt;
+import ru.lomakosv.utils.WorkingZipFile;
+
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -21,14 +23,14 @@ public class UnZIPAndReadingFromFilesTest {
     protected static final String PATH_TO_UNPACKED_FILES = System.getProperty("user.dir")
             + File.separator + "src" + File.separator + "test" + File.separator
             + "resources" + File.separator + "unpacked-zip-files" + File.separator;
-    protected static final ClassLoader PATH_TO_ZIP_FILE = ZipFileChatGpt.class.getClassLoader();
+    protected static final ClassLoader PATH_TO_ZIP_FILE = WorkingZipFile.class.getClassLoader();
 
     TrimmedString trimmedString = new TrimmedString();
-    ZipFileChatGpt zipFile = new ZipFileChatGpt();
+    WorkingZipFile zipFile2 = new WorkingZipFile();
 
     @BeforeEach
-    void unZIP() {
-        zipFile.unzipFiles(PATH_TO_UNPACKED_FILES, PATH_TO_ZIP_FILE);
+    void unZIP() throws IOException {
+        zipFile2.extractThemAll(PATH_TO_UNPACKED_FILES, PATH_TO_ZIP_FILE);
     }
 
     @Test
@@ -36,7 +38,7 @@ public class UnZIPAndReadingFromFilesTest {
         File file = new File(PATH_TO_UNPACKED_FILES, "file-txt.txt");
         try (InputStream is = new FileInputStream(file)) {
             byte[] bytes = is.readAllBytes();
-            String fileAsString = new String(bytes);
+            String fileAsString = new String(bytes, Charset.forName("windows-1251"));
             Assertions.assertTrue(fileAsString.contains("Отлично"));
         }
     }
@@ -82,7 +84,7 @@ public class UnZIPAndReadingFromFilesTest {
 
 
     @AfterEach
-    void deleteCatalog() {
-        zipFile.delete(PATH_TO_UNPACKED_FILES);
+     void deleteCatalog() {
+        zipFile2.deleteAllFilesFolder(PATH_TO_UNPACKED_FILES);
     }
 }
