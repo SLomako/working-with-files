@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.Objects;
 
 
-public class WorkingZipFile{
+public class WorkingZipFile {
 
     public void extractThemAll(String pathToUnpackedFiles, ClassLoader pathToZipFile) throws IOException {
 
@@ -22,9 +22,11 @@ public class WorkingZipFile{
     }
 
 
-    public void deleteAllFilesFolder(String pathToUnpackedFiles){
+    public void deleteAllFilesFolder(String pathToUnpackedFiles) {
 
         for (File myFile : Objects.requireNonNull(new File(pathToUnpackedFiles).listFiles()))
-            if (myFile.isFile()) myFile.delete();
+            if (myFile.isFile()) {
+                myFile.delete();
+            }
     }
 }

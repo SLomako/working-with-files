@@ -20,10 +20,10 @@ import java.util.List;
 
 public class UnZIPAndReadingFromFilesTest {
 
-    protected static final String PATH_TO_UNPACKED_FILES = System.getProperty("user.dir")
+    private static final String PATH_TO_UNPACKED_FILES = System.getProperty("user.dir")
             + File.separator + "src" + File.separator + "test" + File.separator
             + "resources" + File.separator + "unpacked-zip-files" + File.separator;
-    protected static final ClassLoader PATH_TO_ZIP_FILE = WorkingZipFile.class.getClassLoader();
+    private static final ClassLoader PATH_TO_ZIP_FILE = WorkingZipFile.class.getClassLoader();
 
     TrimmedString trimmedString = new TrimmedString();
     WorkingZipFile zipFile2 = new WorkingZipFile();

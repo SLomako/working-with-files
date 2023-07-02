@@ -22,12 +22,12 @@ import java.util.zip.ZipInputStream;
 
 public class ReadingFromZIPFileTest {
 
-    static ClassLoader classLoader = ReadingFromZIPFileTest.class.getClassLoader();
-    static TrimmedString trimmedString = new TrimmedString();
-    static String zipPath = "file.zip";
+    private static final ClassLoader classLoader = ReadingFromZIPFileTest.class.getClassLoader();
+    private static final TrimmedString trimmedString = new TrimmedString();
+    private static final String zipPath = "file.zip";
 
     @Test
-    public void CSVTest() throws Exception {
+    public void testCSV() throws Exception {
 
         try (InputStream is = classLoader.getResourceAsStream(zipPath)) {
             assert is != null;
@@ -47,7 +47,7 @@ public class ReadingFromZIPFileTest {
     }
 
     @Test
-    public void PDFTest() throws Exception {
+    public void testPDF() throws Exception {
         try (InputStream is = classLoader.getResourceAsStream(zipPath)) {
             assert is != null;
             try (ZipInputStream zis = new ZipInputStream(is)) {
@@ -63,7 +63,7 @@ public class ReadingFromZIPFileTest {
     }
 
     @Test
-    public void TXTTest() throws Exception {
+    public void testTXT() throws Exception {
         try (InputStream is = classLoader.getResourceAsStream(zipPath)) {
             assert is != null;
             try (ZipInputStream zis = new ZipInputStream(is)) {
@@ -80,7 +80,7 @@ public class ReadingFromZIPFileTest {
     }
 
     @Test
-    public void XLSXTest() throws Exception {
+    public void testXLSX() throws Exception {
         try (InputStream is = classLoader.getResourceAsStream(zipPath)) {
             assert is != null;
             try (ZipInputStream zis = new ZipInputStream(is)) {
@@ -97,7 +97,7 @@ public class ReadingFromZIPFileTest {
     }
 
     @Test
-    public void DOCXTest() throws Exception {
+    public void testDOCX() throws Exception {
         try (InputStream is = classLoader.getResourceAsStream(zipPath)) {
             assert is != null;
             try (ZipInputStream zis = new ZipInputStream(is)) {

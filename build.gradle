@@ -3,7 +3,6 @@ plugins {
 }
 
 group 'ru.lomakosv'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -14,17 +13,17 @@ compileTestJava {
 }
 
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.2'
-    testImplementation group: 'com.codeborne', name: 'selenide', version: '6.12.3'
-    testImplementation group: 'com.codeborne', name: 'pdf-test', version: '1.8.1'
-    testImplementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.3'
-    testImplementation group: 'com.codeborne', name: 'pdf-test', version: '1.8.1'
-    testImplementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
-    testImplementation group: 'com.codeborne', name: 'xls-test', version: '1.7.0'
-    testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.0-rc1'
-    testImplementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.15.0-rc1'
-    testImplementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.11.5'
-
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter:5.9.2',
+            'com.codeborne:selenide:6.12.3',
+            'com.codeborne:pdf-test:1.8.1',
+            'org.apache.poi:poi-ooxml:5.2.3',
+            'com.opencsv:opencsv:5.7.1',
+            'com.codeborne:xls-test:1.7.0',
+            'com.fasterxml.jackson.core:jackson-databind:2.15.0-rc1',
+            'com.fasterxml.jackson.core:jackson-core:2.15.0-rc1',
+            'net.lingala.zip4j:zip4j:2.11.5'
+    )
 }
 test {
     useJUnitPlatform()
