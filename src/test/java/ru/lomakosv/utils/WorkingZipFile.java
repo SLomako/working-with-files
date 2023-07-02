@@ -21,7 +21,6 @@ public class WorkingZipFile {
         filesZip.close();
     }
 
-
     public void deleteAllFilesFolder(String pathToUnpackedFiles) {
 
         for (File myFile : Objects.requireNonNull(new File(pathToUnpackedFiles).listFiles()))
